@@ -5,7 +5,6 @@ using System.Text;
 using System.IO;
 using UnityEngine;
 
-
 class GameEngine
     {
         Map map = new Map();
@@ -16,12 +15,14 @@ class GameEngine
 
         public Unit[] Game(Unit[] unit)
         {
+        Debug.Log("GameEngine Load");
             int closest = 0;
             for (int i = 0; i < 12; i++)
             {
                 if (unit[i] != null)
                 {
-                    closest = unit[i].ClosestUnit(unit);
+                Debug.Log("unit "+i+" not null");
+                closest = unit[i].ClosestUnit(unit);
                     if (unit[closest] != null)
                     {
                         if (unit[i].WithinRange(unit, closest))
@@ -32,19 +33,21 @@ class GameEngine
                             }
                             else
                             {
-                                unit = unit[i].Battle(unit, closest);
+                            Debug.Log("unit " + i + " fighting");
+                            unit = unit[i].Battle(unit, closest);
                             }
                         }
                         else
                         {
                             unit = unit[i].Move(unit, closest);
-                        }
+                        Debug.Log("unit " + i + " fighting");
+                    }
 
                     }
 
                 }
             }
-        return unit;
+                return unit;
             
         }
     }

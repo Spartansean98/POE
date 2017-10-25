@@ -84,7 +84,6 @@
     <Compile Include="Assets\Scripts\GameEngine.cs" />
     <Compile Include="Assets\Scripts\Map.cs" />
     <Compile Include="Assets\Scripts\MeleeUnit.cs" />
-    <Compile Include="Assets\Scripts\Program.cs" />
     <Compile Include="Assets\Scripts\RangedUnit.cs" />
     <Compile Include="Assets\Scripts\ResourceBuilding.cs" />
     <Compile Include="Assets\Scripts\Unit.cs" />

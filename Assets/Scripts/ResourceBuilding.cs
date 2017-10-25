@@ -78,7 +78,7 @@ class ResourceBuilding : Building
                 }
                 else
                 {
-                    Debug.Log();
+                    Debug.Log("");
                 }
 
             }

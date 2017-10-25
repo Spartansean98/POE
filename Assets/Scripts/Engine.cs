@@ -65,17 +65,31 @@ public class Engine : MonoBehaviour {
         {
             for (int k = 0; k < 20; k++)
             {
-                Instantiate(Resources.Load("Grass"), new Vector3(i, k, -1), Quaternion.identity);
+                Instantiate(Resources.Load("Grass"), new Vector3(i, k, 1), Quaternion.identity);
             }
+        }
+        for(int i = 0;i<12;i++)
+        {
+            if (unit[i].Atkrange > 1)
+            {
+                Instantiate(Resources.Load("Archer"+ unit[i].Fact), new Vector3(unit[i].Xpos, unit[i].Ypos, -2), Quaternion.identity);
+            }
+            else
+            {
+                Instantiate(Resources.Load("Knight"+ unit[i].Fact), new Vector3(unit[i].Xpos, unit[i].Ypos, -2), Quaternion.identity);
+            }
+            
         }
         //lblGameArea.Text = map.getMap();
     }
 	
 	// Update is called once per frame
 	void Update () {
-        if(frames==60)
+        frames++;
+        if(frames%60 ==0)
         {
             Tick();
+            redraw();
         }
     }
 
@@ -121,6 +135,24 @@ public class Engine : MonoBehaviour {
 
     void redraw()
     {
-
+        GameObject[] tagged = GameObject.FindGameObjectsWithTag("Redraw");
+        foreach (GameObject x in tagged)
+        {
+            Destroy(x.gameObject);
+        }
+        for (int i = 0; i < 12; i++)
+        {
+            if (unit[i] != null)
+            {
+                if (unit[i].Atkrange > 1)
+                {
+                    Instantiate(Resources.Load("Archer" + unit[i].Fact), new Vector3(unit[i].Xpos, unit[i].Ypos, -2), Quaternion.identity);
+                }
+                else
+                {
+                    Instantiate(Resources.Load("Knight" + unit[i].Fact), new Vector3(unit[i].Xpos, unit[i].Ypos, -2), Quaternion.identity);
+                }
+            }
+        }
+        }
     }
-}

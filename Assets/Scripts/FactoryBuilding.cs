@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
-using System.Threading.Tasks;
+using UnityEngine;
 
 
     class FactoryBuilding : Building
@@ -41,7 +41,7 @@ using System.Threading.Tasks;
 
             public Unit spawner()
             {
-            Random rand = new Random();
+            System.Random rand = new System.Random();
             type = rand.Next(1, 3);
                 Unit unit;
                 if (type == 1)
@@ -103,7 +103,7 @@ using System.Threading.Tasks;
                 }
                 else
                 {
-                    Debug.Log();
+                    Debug.Log("");
                 }
 
             }
