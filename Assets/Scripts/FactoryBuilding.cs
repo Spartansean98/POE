@@ -30,16 +30,19 @@ using UnityEngine;
             xpos = x;
             ypos = y;
             spawnx = x;
-            spawny = y - 1;
-            spawny = 18;
+            spawny = y;
             ticks = 5;
             Fact = fact;
-            hp = 100;
+        maxHp = 150;
+        hp = 100;
             Sym = "U";
             hp = 100;
             }
-
-            public Unit spawner()
+    public override int generator()
+    {
+        throw new NotImplementedException();
+    }
+    public override Unit spawner()
             {
             System.Random rand = new System.Random();
             type = rand.Next(1, 3);

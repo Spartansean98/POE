@@ -19,11 +19,16 @@ class ResourceBuilding : Building
             perTick = 10;
             Fact = fact;
             type = "wool";
-            hp = 100;
+        maxHp = 150;
+            hp = 150;
             Sym = "$";
         }
+    public override Unit spawner()
+    {
+        throw new NotImplementedException();
+    }
 
-        public int generator()
+    public override int generator()
         {
             remain = remain - perTick;
             return perTick;

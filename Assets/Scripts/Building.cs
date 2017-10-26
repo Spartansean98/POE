@@ -9,6 +9,7 @@ abstract class Building
         protected int xpos;
         protected int ypos;
         protected int hp;
+    protected int maxHp;
         protected int fact;
         protected string symbol;
         public int Xpos
@@ -22,6 +23,17 @@ abstract class Building
                 xpos = value;
             }
         }
+    public int MaxHp
+    {
+        get
+        {
+            return maxHp;
+        }
+        set
+        {
+            maxHp = value;
+        }
+    }
         public int Ypos
         {
             get
@@ -73,6 +85,8 @@ abstract class Building
             }
         public abstract void save();
         public abstract void read();
+    public abstract int generator();
+    public abstract Unit spawner();
 
         ~Building()
         {

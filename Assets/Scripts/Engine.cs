@@ -7,16 +7,15 @@ public class Engine : MonoBehaviour {
     Unit[] unit = new Unit[12];
     GameEngine g = new GameEngine();
     Map map = new Map();
-    FactoryBuilding[] builder = new FactoryBuilding[2];
-    ResourceBuilding[] genny = new ResourceBuilding[2];
+    Building[] build = new Building[4];
     int time = 0;
     int resource1 = 0;
     int resource2 = 0;
     int count = 0;
     int frames = 0;
-   
+
     // Use this for initialization
-    void Start () {
+    void Start() {
         int x = 0;
         int y = 0;
         time = 0;
@@ -56,10 +55,10 @@ public class Engine : MonoBehaviour {
                 }
             }
         }
-        builder[0] = new FactoryBuilding(0, 19, 1);
-        builder[1] = new FactoryBuilding(19, 19, 2);
-        genny[0] = new ResourceBuilding(0, 0, 1);
-        genny[1] = new ResourceBuilding(19, 0, 2);
+        build[0] = new FactoryBuilding(0, 19, 1);
+        build[1] = new FactoryBuilding(19, 0, 2);
+        build[2] = new ResourceBuilding(0, 0, 1);
+        build[3] = new ResourceBuilding(19, 19, 2);
         map.NewMap(unit);
         for (int i = 0; i < 20; i++)
         {
@@ -68,19 +67,23 @@ public class Engine : MonoBehaviour {
                 Instantiate(Resources.Load("Grass"), new Vector3(i, k, 1), Quaternion.identity);
             }
         }
-        for(int i = 0;i<12;i++)
+        for (int i = 0; i < 12; i++)
         {
             if (unit[i].Atkrange > 1)
             {
-                Instantiate(Resources.Load("Archer"+ unit[i].Fact), new Vector3(unit[i].Xpos, unit[i].Ypos, -2), Quaternion.identity);
+                Instantiate(Resources.Load("Archer" + unit[i].Fact), new Vector3(unit[i].Xpos, unit[i].Ypos, -2), Quaternion.identity);
             }
             else
             {
-                Instantiate(Resources.Load("Knight"+ unit[i].Fact), new Vector3(unit[i].Xpos, unit[i].Ypos, -2), Quaternion.identity);
+                Instantiate(Resources.Load("Knight" + unit[i].Fact), new Vector3(unit[i].Xpos, unit[i].Ypos, -2), Quaternion.identity);
             }
-            
+
         }
-        //lblGameArea.Text = map.getMap();
+        Instantiate(Resources.Load("Resource" + build[3].Fact), new Vector3(build[3].Xpos, build[3].Ypos, -1), Quaternion.identity);
+        Instantiate(Resources.Load("Resource" + build[2].Fact), new Vector3(build[2].Xpos, build[2].Ypos, -1), Quaternion.identity);
+        Instantiate(Resources.Load("Factory" + build[1].Fact), new Vector3(build[1].Xpos, build[1].Ypos, -1), Quaternion.identity);
+        Instantiate(Resources.Load("Factory" + build[0].Fact), new Vector3(build[0].Xpos, build[0].Ypos, -1), Quaternion.identity);
+        //lblGameArea.Text = map.getMap()
     }
 	
 	// Update is called once per frame
@@ -95,19 +98,11 @@ public class Engine : MonoBehaviour {
 
     void Tick()
     {
-        count = 0;
         unit = g.Game(unit);
         map.UpdatePosition(unit);
         // lblGameArea.Text = map.getMap();
         time++;
         // lblTime.Text = "" + time;
-        for (int i = 0; i < 12; i++)
-        {
-            if (unit[i] != null)
-            {
-                count++;
-            }
-        }
         //lblAlive.Text = "Units Alive: " + count;
         if (time % 5 == 0)
         {
@@ -115,7 +110,7 @@ public class Engine : MonoBehaviour {
             {
                 if (unit[i] == null)
                 {
-                    unit[i] = builder[1].spawner();
+                    unit[i] = build[1].spawner();
                     i = 50;
                 }
             }
@@ -123,13 +118,13 @@ public class Engine : MonoBehaviour {
             {
                 if (unit[i] == null)
                 {
-                    unit[i] = builder[0].spawner();
+                    unit[i] = build[0].spawner();
                     i = 50;
                 }
             }
         }
-        resource1 = resource1 + genny[0].generator();
-        resource2 = resource2 + genny[1].generator();
+        resource1 = resource1 + build[2].generator();
+        resource2 = resource2 + build[3].generator();
 
     }
 
@@ -154,5 +149,22 @@ public class Engine : MonoBehaviour {
                 }
             }
         }
+        for(int i=0;i<4;i++ )
+        {
+            if(build[i] != null)
+            {
+                if (build[i].MaxHp == 150)
+                {
+                    Instantiate(Resources.Load("Resource" + build[i].Fact), new Vector3(build[i].Xpos, build[i].Ypos, -1), Quaternion.identity);
+                }
+                else
+                {
+                    Instantiate(Resources.Load("Factory" + build[0].Fact), new Vector3(build[i].Xpos, build[i].Ypos, -1), Quaternion.identity);
+                }
+            }
         }
+
     }
+
+    }
+    
