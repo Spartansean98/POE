@@ -10,7 +10,7 @@ using UnityEngine;
     {
      
             private int spawnx;
-        private int spawny;
+            private int spawny;
             private int ticks;
             private int type;
         public int Ticks
@@ -33,8 +33,8 @@ using UnityEngine;
             spawny = y;
             ticks = 5;
             Fact = fact;
-        maxHp = 150;
-        hp = 100;
+            maxHp = 100;
+            hp = 100;
             Sym = "U";
             hp = 100;
             }

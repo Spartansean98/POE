@@ -28,11 +28,11 @@ public class CameraController : MonoBehaviour {
         float smoothSpeed = 5.0f;
         float minOrtho = 1.0f;
         float maxOrtho = 20.0f;
-        float scroll = Input.GetAxis("Mouse ScrollWheel");
+        float scrollup = Input.GetAxis("Mouse ScrollWheel");
 
-        if(scroll !=0.0f)
+        if (scrollup !=0.0f)
         {
-            targetOrtho = scroll * zoomSpeed;
+            targetOrtho -= scrollup * zoomSpeed;
             targetOrtho = Mathf.Clamp(targetOrtho, minOrtho, maxOrtho);
         }
         Camera.main.orthographicSize = Mathf.MoveTowards(Camera.main.orthographicSize, targetOrtho, smoothSpeed * Time.deltaTime);

@@ -167,6 +167,7 @@ class RangedUnit: Unit
             }
 
         }
+
         public override Unit[] Battle(Unit[] unit, int location)
         {
             unit[location].Hp = unit[location].Hp - attk;
@@ -176,6 +177,115 @@ class RangedUnit: Unit
             }
             return unit;
         }
+
+        public override Building[] BattleBuild(Building[] build, int location)
+    {
+        build[location].Hp = build[location].Hp - attk;
+        if (build[location].Hp <= 0)
+        {
+            build[location] = null;
+        }
+        return build;
+    }
+
+        public override Building[] MoveBuild(Building[] build, int location)
+    {
+        if ((Math.Abs(xpos - build[location].Xpos) != 0) && (Math.Abs(ypos - build[location].Ypos) != 0))
+        {
+            Debug.Log("not on top");
+            if ((Math.Abs(xpos - build[location].Xpos)) > (Math.Abs(ypos - build[location].Ypos)))
+            {
+                Debug.Log("xpos is smol");
+                if (xpos - build[location].Xpos < 0)
+                {
+                    xpos++;
+                    Debug.Log("move in x right");
+                }
+                else if (xpos - build[location].Xpos > 0)
+                {
+                    xpos--;
+                    Debug.Log("move in x left");
+                }
+            }
+            else if ((Math.Abs(xpos - build[location].Xpos)) < (Math.Abs(ypos - build[location].Ypos)))
+            {
+                Debug.Log("ypos is smol");
+                Debug.Log(ypos);
+                Debug.Log(build[location].Ypos);
+                if (ypos - build[location].Ypos < 0)
+                {
+                    ypos++;
+                    Debug.Log("move in y down");
+                }
+                else if (ypos - build[location].Ypos > 0)
+                {
+                    ypos--;
+                    Debug.Log("move in y up");
+                }
+            }
+            else if ((Math.Abs(xpos - build[location].Xpos)) == (Math.Abs(ypos - build[location].Ypos)))
+            {
+                Debug.Log("x and y is sem, random between x and y pls");
+                System.Random r = new System.Random();
+                if (r.Next(1, 3) == 1)
+                {
+                    if (ypos - build[location].Ypos < 0)
+                    {
+                        ypos++;
+                        Debug.Log("move in y down");
+                    }
+                    else if (ypos - build[location].Ypos > 0)
+                    {
+                        ypos--;
+                        Debug.Log("move in y up");
+                    }
+                }
+                else
+                {
+                    if (xpos - build[location].Xpos < 0)
+                    {
+                        xpos++;
+                        Debug.Log("move in x right");
+                    }
+                    else if (xpos - build[location].Xpos > 0)
+                    {
+                        xpos--;
+                        Debug.Log("move in x left");
+                    }
+                }
+            }
+        }
+        else if (xpos - build[location].Xpos == 0)
+        {
+            Debug.Log("x is 0 move in y");
+            if (ypos - build[location].Ypos < 0)
+            {
+                ypos++;
+                Debug.Log("move in y down");
+            }
+            else if (ypos - build[location].Ypos > 0)
+            {
+                ypos--;
+                Debug.Log("move in y up");
+            }
+        }
+        else if (ypos - build[location].Ypos == 0)
+        {
+            Debug.Log("y is 0 move in x");
+            if (xpos - build[location].Xpos < 0)
+            {
+                xpos++;
+                Debug.Log("move in x right");
+            }
+            else if (xpos - build[location].Xpos > 0)
+            {
+                xpos--;
+                Debug.Log("move in x left");
+            }
+        }
+        return build;
+    }
+
         public override bool WithinRange(Unit[] unit, int location)
         {
             bool inrange = false;
@@ -190,6 +300,45 @@ class RangedUnit: Unit
 
             return inrange;
         }
+
+        public override bool WithinRangeBuild(Building[] build, int location)
+    {
+        bool inrange = false;
+        if (Math.Abs(build[location].Xpos - xpos) > atkrange || Math.Abs(build[location].Ypos - ypos) > atkrange)
+        {
+            inrange = false;
+        }
+        else if (Math.Abs(build[location].Xpos - xpos) < atkrange || Math.Abs(build[location].Ypos - ypos) < atkrange)
+        {
+            inrange = true;
+        }
+
+        return inrange;
+    }
+
+        public override int ClosestBuilding(Building[] build)
+        {
+        int close = 0;
+        int distance = 100;
+        for (int i = 0; i < 4; i++)
+        {
+            if (build[i] != null)
+            {
+                if (fact != build[i].Fact)
+                {
+
+                    if (Math.Abs(build[i].Xpos - xpos) + Math.Abs(build[i].Ypos - ypos) < distance)
+                    {
+                        distance = Math.Abs(build[i].Xpos - xpos) + Math.Abs(build[i].Ypos - ypos);
+                        close = i;
+                    }
+
+                }
+            }
+        }
+        return close;
+        }
+
         public override int ClosestUnit(Unit[] unit)
         {
             int close = 0;
@@ -211,6 +360,7 @@ class RangedUnit: Unit
             }
             return close;
         }
+
         public override string ToString()
         {
             return "Ranged Unit\nFaction: "+fact+"\nSymbol: "+sym+"\nX position: " + xpos+"\nY position: "+ypos+"\nMax Hp: "+maxHp+"\nCurrent Hp: "+hp+"\nRange: "+atkrange+"\nDamage: "+attk;

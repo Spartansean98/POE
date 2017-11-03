@@ -98,7 +98,8 @@ public class Engine : MonoBehaviour {
 
     void Tick()
     {
-        unit = g.Game(unit);
+        unit = g.Game(unit, build);
+        build = g.getbuild();
         map.UpdatePosition(unit);
         // lblGameArea.Text = map.getMap();
         time++;
@@ -106,25 +107,31 @@ public class Engine : MonoBehaviour {
         //lblAlive.Text = "Units Alive: " + count;
         if (time % 5 == 0)
         {
-            for (int i = 0; i < 12; i++)
+            if (build[1]!= null)
             {
-                if (unit[i] == null)
+                for (int i = 0; i < 12; i++)
                 {
-                    unit[i] = build[1].spawner();
-                    i = 50;
+                    if (unit[i] == null)
+                    {
+                        unit[i] = build[1].spawner();
+                        i = 50;
+                    }
                 }
             }
-            for (int i = 0; i < 12; i++)
+            if (build[0]!= null)
             {
-                if (unit[i] == null)
+                for (int i = 0; i < 12; i++)
                 {
-                    unit[i] = build[0].spawner();
-                    i = 50;
+                    if (unit[i] == null)
+                    {
+                        unit[i] = build[0].spawner();
+                        i = 50;
+                    }
                 }
             }
         }
-        resource1 = resource1 + build[2].generator();
-        resource2 = resource2 + build[3].generator();
+        //resource1 = resource1 + build[2].generator();
+        //resource2 = resource2 + build[3].generator();
 
     }
 
@@ -159,7 +166,7 @@ public class Engine : MonoBehaviour {
                 }
                 else
                 {
-                    Instantiate(Resources.Load("Factory" + build[0].Fact), new Vector3(build[i].Xpos, build[i].Ypos, -1), Quaternion.identity);
+                    Instantiate(Resources.Load("Factory" + build[i].Fact), new Vector3(build[i].Xpos, build[i].Ypos, -1), Quaternion.identity);
                 }
             }
         }

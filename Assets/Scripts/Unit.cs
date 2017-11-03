@@ -137,8 +137,12 @@ abstract class Unit
         public abstract void Run();
         public abstract Unit[] Move(Unit[] unit, int location);
         public abstract Unit[] Battle(Unit[] unit, int location);
+        public abstract Building[] MoveBuild(Building[] build, int location);
+        public abstract Building[] BattleBuild(Building[] build, int location);
         public abstract bool WithinRange(Unit[] unit, int location);
+        public abstract bool WithinRangeBuild(Building[] build, int location);
         public abstract int ClosestUnit(Unit[] unit);
+        public abstract int ClosestBuilding(Building[] build);
         public override abstract string ToString();
         public abstract void save();
         public abstract void read();
