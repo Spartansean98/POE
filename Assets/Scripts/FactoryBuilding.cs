@@ -36,7 +36,6 @@ using UnityEngine;
             maxHp = 100;
             hp = 100;
             Sym = "U";
-            hp = 100;
             }
     public override int generator()
     {

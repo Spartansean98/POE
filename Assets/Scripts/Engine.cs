@@ -149,10 +149,12 @@ public class Engine : MonoBehaviour {
                 if (unit[i].Atkrange > 1)
                 {
                     Instantiate(Resources.Load("Archer" + unit[i].Fact), new Vector3(unit[i].Xpos, unit[i].Ypos, -2), Quaternion.identity);
+                    Instantiate(Resources.Load("Health" + getHp(i)), new Vector3(unit[i].Xpos - .1f, unit[i].Ypos-.7f, -2), Quaternion.identity);
                 }
                 else
                 {
                     Instantiate(Resources.Load("Knight" + unit[i].Fact), new Vector3(unit[i].Xpos, unit[i].Ypos, -2), Quaternion.identity);
+                    Instantiate(Resources.Load("Health" + getHp(i)), new Vector3(unit[i].Xpos - .1f, unit[i].Ypos - .7f, -2), Quaternion.identity);
                 }
             }
         }
@@ -163,15 +165,30 @@ public class Engine : MonoBehaviour {
                 if (build[i].MaxHp == 150)
                 {
                     Instantiate(Resources.Load("Resource" + build[i].Fact), new Vector3(build[i].Xpos, build[i].Ypos, -1), Quaternion.identity);
+                    Instantiate(Resources.Load("Health" + getHpBuild(i)), new Vector3(build[i].Xpos - .1f, build[i].Ypos - .7f, -2), Quaternion.identity);
                 }
                 else
                 {
                     Instantiate(Resources.Load("Factory" + build[i].Fact), new Vector3(build[i].Xpos, build[i].Ypos, -1), Quaternion.identity);
+                    Instantiate(Resources.Load("Health" + getHpBuild(i)), new Vector3(build[i].Xpos - .1f, build[i].Ypos - .7f, -2), Quaternion.identity);
                 }
             }
         }
 
     }
 
+    int getHp(int position)
+    {
+        double hp = unit[position].Hp/(unit[position].MaxHp+0.0);
+        int val = Convert.ToInt32(hp*20);
+        return val;
+    }
+
+    int getHpBuild(int position)
+    {
+        double hp = build[position].Hp / (build[position].MaxHp + 0.0);
+        int val = Convert.ToInt32(hp * 20);
+        return val;
+    }
     }
     
