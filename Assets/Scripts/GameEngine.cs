@@ -39,7 +39,7 @@ class GameEngine
                             build = unit[i].MoveBuild(build, closestBuild);
                         }
                     }
-                    else
+                    else 
                     {
                         if (unit[i].WithinRange(unit, closestUnit))
                         {
@@ -61,6 +61,37 @@ class GameEngine
 
                     }
 
+                }
+                else if(build[closestBuild] != null && unit[closestUnit] == null)
+                {
+                    if (unit[i].WithinRangeBuild(build, closestBuild))
+                    {
+                        build = unit[i].BattleBuild(build, closestBuild);
+                    }
+                    else
+                    {
+                        build = unit[i].MoveBuild(build, closestBuild);
+                    }
+                }
+                else if((build[closestBuild] == null && unit[closestUnit] != null))
+                {
+                    if (unit[i].WithinRange(unit, closestUnit))
+                    {
+                        if (unit[i].Hp < unit[i].MaxHp / 4)
+                        {
+                            unit[i].Run();
+                        }
+                        else
+                        {
+                            Debug.Log("unit " + i + " fighting");
+                            unit = unit[i].Battle(unit, closestUnit);
+                        }
+                    }
+                    else
+                    {
+                        unit = unit[i].Move(unit, closestUnit);
+                        Debug.Log("unit " + i + " fighting");
+                    }
                 }
             }
         }

@@ -4,7 +4,7 @@ using UnityEngine;
 using System;
 
 public class Engine : MonoBehaviour {
-    Unit[] unit = new Unit[12];
+    Unit[] unit = new Unit[20];
     GameEngine g = new GameEngine();
     Map map = new Map();
     Building[] build = new Building[4];
@@ -55,10 +55,10 @@ public class Engine : MonoBehaviour {
                 }
             }
         }
-        build[0] = new FactoryBuilding(0, 19, 1);
-        build[1] = new FactoryBuilding(19, 0, 2);
-        build[2] = new ResourceBuilding(0, 0, 1);
-        build[3] = new ResourceBuilding(19, 19, 2);
+        build[0] = new FactoryBuilding(r.Next(0,20), r.Next(0, 20), 1);
+        build[1] = new FactoryBuilding(r.Next(0, 20), r.Next(0, 20), 2);
+        build[2] = new ResourceBuilding(r.Next(0, 20), r.Next(0, 20), 1);
+        build[3] = new ResourceBuilding(r.Next(0, 20), r.Next(0, 20), 2);
         map.NewMap(unit);
         for (int i = 0; i < 20; i++)
         {
@@ -105,11 +105,11 @@ public class Engine : MonoBehaviour {
         time++;
         // lblTime.Text = "" + time;
         //lblAlive.Text = "Units Alive: " + count;
-        if (time % 5 == 0)
+        if (time % 4 == 0)
         {
             if (build[1]!= null)
             {
-                for (int i = 0; i < 12; i++)
+                for (int i = 0; i < 20; i++)
                 {
                     if (unit[i] == null)
                     {
@@ -120,7 +120,7 @@ public class Engine : MonoBehaviour {
             }
             if (build[0]!= null)
             {
-                for (int i = 0; i < 12; i++)
+                for (int i = 0; i < 20; i++)
                 {
                     if (unit[i] == null)
                     {
@@ -142,7 +142,7 @@ public class Engine : MonoBehaviour {
         {
             Destroy(x.gameObject);
         }
-        for (int i = 0; i < 12; i++)
+        for (int i = 0; i < 20; i++)
         {
             if (unit[i] != null)
             {
